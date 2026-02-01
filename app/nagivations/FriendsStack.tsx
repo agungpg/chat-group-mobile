@@ -20,6 +20,9 @@ type ScreenConfig<K extends keyof FriendStackParamList> = {
 
 export const FriendStackConfig = {
   initialRouteName: FriendRoutes.FriendList,
+  screenOptions: {
+    headerShown: false,
+  },
   screens: [
     { name: FriendRoutes.FriendList, component: FriendListScreen },
     { name: FriendRoutes.FriendRequest, component: FriendRequestScreen },
@@ -30,7 +33,7 @@ export const FriendStackConfig = {
 const Stack = createNativeStackNavigator<FriendStackParamList>();
 
 const FriendsStackNavigator = () => (
-  <Stack.Navigator initialRouteName={FriendStackConfig.initialRouteName}>
+  <Stack.Navigator screenOptions={FriendStackConfig.screenOptions} initialRouteName={FriendStackConfig.initialRouteName}>
     {FriendStackConfig.screens.map(({ name, component }) => (
       <Stack.Screen key={name} name={name} component={component} />
     ))}

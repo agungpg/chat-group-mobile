@@ -8,7 +8,7 @@ import { memo } from 'react';
 const Tab = createBottomTabNavigator();
 
 const MainNavigator = () => (
-  <Tab.Navigator>
+  <Tab.Navigator screenOptions={{ headerShown: false }}>
     <Tab.Screen name='Chat' component={ChatStackNavigator} />
     <Tab.Screen name='Friend' component={FriendsStackNavigator} />
     <Tab.Screen name='Settings' component={SettingsStackNavigator} />

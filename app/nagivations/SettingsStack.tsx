@@ -20,6 +20,9 @@ type ScreenConfig<K extends keyof SettingsStackParamList> = {
 
 export const SettingsConfig = {
   initialRouteName: SettingsRoutes.Settings,
+  screenOptions: {
+    headerShown: false,
+  },
   screens: [
     { name: SettingsRoutes.Settings, component: SettingScreen },
     { name: SettingsRoutes.Profile, component: ProfileScreen },
@@ -31,7 +34,7 @@ export const SettingsConfig = {
 const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
 const SettingsStackNavigator = () => (
-  <Stack.Navigator initialRouteName={SettingsConfig.initialRouteName}>
+  <Stack.Navigator screenOptions={SettingsConfig.screenOptions} initialRouteName={SettingsConfig.initialRouteName}>
     {SettingsConfig.screens.map(({ name, component }) => (
       <Stack.Screen key={name} name={name} component={component} />
     ))}

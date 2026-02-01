@@ -1,13 +1,12 @@
 import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "@screens/login"
-import RegistrationScreen from "@screens/registration"
-import ProfileSetupScreen from "@screens/profile-setup"
+import LoginScreen from "app/screens/login"
+import RegistrationScreen from "app/screens/registration"
+import ProfileSetupScreen from "app/screens/profile-setup"
 
 export type AuthParamList = {
   Login: undefined;
-  Registration: { roomId: string; chatId?: string };
+  Registration: undefined;
   ProfileSetup: { groupId: string };
-  Profile: { userId: string };
 }
 
 export const AuthRoutes =  {
@@ -24,6 +23,9 @@ type ScreenConfig<K extends keyof AuthParamList> = {
 
 export const AuthConfig = {
   initialRouteName: AuthRoutes.Login,
+  screenOptions: {
+    headerShown: false,
+  },
   screens: [
     { name: AuthRoutes.Login, component: LoginScreen },
     { name: AuthRoutes.Registration, component: RegistrationScreen },
@@ -36,9 +38,9 @@ export const AuthConfig = {
 const Stack = createNativeStackNavigator<AuthParamList>();
 
 const AuthNavigator = () => (
-  <Stack.Navigator initialRouteName={AuthConfig.initialRouteName}>
-    {AuthConfig.screens.map(({ name, component }) => (
-      <Stack.Screen key={name} name={name} component={component} />
+  <Stack.Navigator initialRouteName={AuthConfig.initialRouteName} screenOptions={AuthConfig.screenOptions}>
+    {AuthConfig.screens.map(({ name, component,  }) => (
+      <Stack.Screen  key={name} name={name} component={component} />
     ))}
   </Stack.Navigator>
 )

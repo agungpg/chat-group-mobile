@@ -26,6 +26,9 @@ type ScreenConfig<K extends keyof ChatStackParamList> = {
 
 export const ChatStackConfig = {
   initialRouteName: ChatRoutes.ChatList,
+  screenOptions: {
+    headerShown: false,
+  },
   screens: [
     { name: ChatRoutes.ChatList, component: ChatListScreen },
     { name: ChatRoutes.ChatRoom, component: ChatRoomScreen },
@@ -34,12 +37,10 @@ export const ChatStackConfig = {
   ] as ScreenConfig<keyof ChatStackParamList>[],
 } as const;
 
-
-
 const Stack = createNativeStackNavigator<ChatStackParamList>();
 
 const ChatStackNavigator = () => (
-  <Stack.Navigator initialRouteName={ChatStackConfig.initialRouteName}>
+  <Stack.Navigator screenOptions={ChatStackConfig.screenOptions} initialRouteName={ChatStackConfig.initialRouteName}>
     {ChatStackConfig.screens.map(({ name, component }) => (
       <Stack.Screen key={name} name={name} component={component} />
     ))}
