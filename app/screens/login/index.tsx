@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import CustomTextInput from "app/components/IconTextInput";
+import CustomTextInput from "@components/CustomTextInput";
 import Button from "app/components/Button";
 import React, { useCallback, useContext, useState } from "react";
 import { View, StyleSheet } from "react-native";

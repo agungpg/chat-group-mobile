@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { StyleSheet, TouchableOpacity, ViewStyle, StyleProp, TouchableOpacityProps, ActivityIndicator, TextStyle } from "react-native";
 import Typography, { TypographyVariant } from "./Typography";
 import MaterialIcons, { MaterialIconsIconName } from "@react-native-vector-icons/material-icons";
+import { COLORS } from "app/constants/token";
 
 interface ButtonProps extends TouchableOpacityProps {
   label?: string;
@@ -25,7 +26,7 @@ const Button = ({
   label,
   isLoading = false,
   disabled = false,
-  backgroundColor = "#C73C80",
+  backgroundColor = COLORS.primary,
   textColor = "#fff",
   textVariant = "label",
   outline = false,

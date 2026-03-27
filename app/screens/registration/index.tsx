@@ -4,6 +4,8 @@ import Stepper from "@components/Stepper";
 import AccountSetup from "app/features/registrations/AccountSetup";
 import ProfileSetup from "app/features/registrations/ProfileSetup";
 import useRegistration from "app/features/registrations/hooks/useRegistration";
+import StepperV2 from "@components/StepperV2";
+import { COLORS } from "app/constants/token";
 
 
 const RegistrationScreen = () => {
@@ -18,7 +20,7 @@ const RegistrationScreen = () => {
 
     
     return <View style={styles.screenContainer}>
-        <Stepper 
+        {/* <Stepper 
           steps={[{
             label: "Account",
             id: "account-detail"
@@ -31,7 +33,10 @@ const RegistrationScreen = () => {
             }
         ]} 
         currentStepIndex={step}
-      />
+      /> */}
+      <View style={{paddingHorizontal: 20}}>
+        <StepperV2 />
+      </View>
       {renderScreen(step)}
     </View>
 }
@@ -39,7 +44,7 @@ const RegistrationScreen = () => {
 const styles = StyleSheet.create({
   screenContainer: {
     paddingVertical: 28,
-    backgroundColor: "#E6EBF0",
+    backgroundColor: COLORS.surface,
     height:" 100%",
   },
   container:{

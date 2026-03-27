@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
-import CustomTextInput from "@components/IconTextInput";
+import CustomTextInput from "@components/CustomTextInput";
 import Button from "@components/Button";
 import Typography from "@components/Typography";
 import { useValidation } from "app/validations/index";

@@ -11,9 +11,6 @@ import { SignUpSchema } from "app/validations/auth";
 import { ApiError } from "app/api/client";
 import { useCheckAccountMutation, useRegisterMutation } from "app/hooks/useAuthApi";
 import useRegistration from "./hooks/useRegistration";
-import StepperV2 from "@components/StepperV2";
-import { COLORS } from "app/constants/token";
-import MaterialIcons from "@react-native-vector-icons/material-icons";
 const formInitialState = {
   username: "",
   email: "",
@@ -149,22 +146,21 @@ const Account = () => {
 
     
     return <View style={styles.screenContainer}>
+      <View style={styles.headerSection}>
+        <Typography variant="display">Sign Up</Typography>
+        <Typography variant="label">Hello! let's join with us</Typography>
+      </View>
       <View style={styles.formInputSection}>
-        <View style={styles.InputWrapper}>
-          <Typography style={styles.inputLabel} color={COLORS.onSurfaceVariant}>Username</Typography>
-          <CustomTextInput 
-            error={errors.username}
-            leftIcon={{
-              name: "person",
-              size: 28,
-            }}
-            value={form.username} 
-            onChangeText={handleusernameChange} 
-            placeholder="username..." 
-          />
-        </View>
-        <View style={styles.InputWrapper}>
-        <Typography style={styles.inputLabel} color={COLORS.onSurfaceVariant}>Email</Typography>
+        <CustomTextInput 
+          error={errors.username}
+          leftIcon={{
+            name: "person",
+            size: 28,
+          }}
+          value={form.username} 
+          onChangeText={handleusernameChange} 
+          placeholder="username..." 
+        />  
         <CustomTextInput 
           error={errors.email}
           leftIcon={{
@@ -175,9 +171,6 @@ const Account = () => {
           onChangeText={handleEmailChange} 
           placeholder="email..." 
         />  
-        </View>
-        <View style={styles.InputWrapper}>
-        <Typography style={styles.inputLabel} color={COLORS.onSurfaceVariant}>Password</Typography>
         <CustomTextInput
           error={errors.password}
           leftIcon={{
@@ -189,9 +182,6 @@ const Account = () => {
           placeholder="password..." 
           type="password" 
         />  
-        </View>
-        <View style={styles.InputWrapper}>
-        <Typography style={styles.inputLabel} color={COLORS.onSurfaceVariant}>Confirm Password</Typography>
         <CustomTextInput
           error={errors.confirmPassword}
           leftIcon={{
@@ -203,76 +193,64 @@ const Account = () => {
           placeholder="confirm password..." 
           type="password" 
         />  
-        </View>
-      </View>
-      <View style={{paddingHorizontal: 20, flex: 1, justifyContent: "center"}}>
-        <View style={{
-          backgroundColor: "#5755a90D",
-          paddingHorizontal: 12,
-          paddingVertical: 20,
-          borderRadius: 8,
-          display: "flex",
-          flexDirection: "row",
-          gap: 4,
-          alignItems: "center"
-        }}>
-          <MaterialIcons name={"info"} color={COLORS.onPrimaryFixedVariant} size={18} />
-          <Typography color={COLORS.onPrimaryFixedVariant} variant="caption">By continuing, you agree to our <Typography color={COLORS.onPrimaryFixedVariant} variant="caption" style={{fontWeight: "600", textDecorationLine: "underline"}}>Terms of Service</Typography> and <Typography variant="caption" color={COLORS.onPrimaryFixedVariant} style={{fontWeight: "600", textDecorationLine: "underline"}}>Privacy Policy</Typography>.</Typography>
-        </View>
       </View>
       <View style={styles.actionsSection}>
+        <View>
           {FormAlert.message ? (
               <Typography variant="body" style={[styles.formAlertMsg, alertMsgColor]}>
                 {FormAlert.message}
               </Typography>
             ) : null}
-            <View style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: 16
-            }}>
-            <Button backgroundColor={COLORS.surfaceContainerHighest} textColor={COLORS.onSurface} style={{width: "40%", borderRadius: 12}} isLoading={isValidating || isCheckingAccount || registerMutation.isPending} label="Cancel" onPress={onNextPress} />
-
-            <Button style={{flex: 1, borderRadius: 12}} isLoading={isValidating || isCheckingAccount || registerMutation.isPending} label="Next" onPress={onNextPress} />
-            </View>
+          <Button isLoading={isValidating || isCheckingAccount || registerMutation.isPending} label="Next" onPress={onNextPress} />
+        </View>
+        <View style={styles.linkRow}>
+          <Typography variant="caption">You already have an account?</Typography>
+          <Button 
+            onPress={onLoginPress}
+            label="Login"  
+            backgroundColor="transparent" 
+            style={styles.linkButton}
+            textVariant="caption"
+            textColor="#363F47"
+          />
+        </View>
       </View>
     </View>
 }
 
 const styles = StyleSheet.create({
   screenContainer: {
-    paddingTop: 40,
-    backgroundColor:  COLORS.surface,
+    padding: 28,
+    backgroundColor: "#E6EBF0",
     flex: 1,
     display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "space-around",
+    flexDirection: "column",
+    justifyContent: "space-around",
+  },
+  headerSection: {
+    gap: 12
   },
   formInputSection: {
-    gap: 12,
-    paddingHorizontal: 20,
-    // flex: 1,
-  },
-  InputWrapper: {
-    gap: 8
-  },
-  inputLabel: {
-    fontWeight: "600"
+    gap: 12
   },
   actionsSection: {
-    paddingHorizontal: 20,
+    gap: 32
+  },
+  linkRow:{
     display: "flex",
-    justifyContent: "flex-end",
-    paddingVertical: 16,
-    borderTopWidth: 0.2,
-    borderTopColor: COLORS.outlineVariant
+    flexDirection: "row",
+    gap: 4,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  linkButton: {
+    height: "auto",
+    paddingHorizontal: 0,
   },
   formAlertMsg: {
     textAlign: "center", 
     paddingBottom: 8
-  },
+  }
 })
 
 export default Account;

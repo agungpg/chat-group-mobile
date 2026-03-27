@@ -1,9 +1,8 @@
 import { memo, useCallback, useState } from "react";
-import { StyleSheet, TextInput, View, TextInputProps,  TouchableOpacity } from "react-native";
+import { StyleSheet, TextInput, View, TextInputProps,  TouchableOpacity, StyleProp, ViewStyle } from "react-native";
 import MaterialIcons, { MaterialIconsIconName } from "@react-native-vector-icons/material-icons";
 import Typography from "./Typography";
-import { StyleProp } from "react-native/types_generated/index";
-import { ViewStyle } from "react-native/types_generated/index";
+import { COLORS } from "app/constants/token";
 
 interface CustomFormInputProps extends TextInputProps {
   error?: string;
@@ -54,13 +53,13 @@ const styles = StyleSheet.create({
   },
   textInputWrapper: {
     height: 48,
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.surfaceContainer,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
     justifyContent: "space-between",
-    borderRadius: 24,
+    borderRadius: 8,
     paddingHorizontal: 12
   },
   textInput: {
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
   },
   errorText:{
     paddingLeft: 8,
-    color: "#DC3545"
+    color: COLORS.error
   }
 })
 
