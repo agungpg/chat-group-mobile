@@ -11,6 +11,19 @@ export type SignUpPayload = {
   password: string;
 };
 
+
+export type CheckAccountPayload = {
+  username: string;
+  email: string;
+};
+export type CheckAccountResponse = {
+  data: {
+    isUsernameTaken: boolean;
+    isEmailTaken: boolean;
+  };
+  message: string;
+};
+
 export type AuthResponse = {
   token: string;
   user?: {
@@ -25,3 +38,6 @@ export const login = (payload: LoginPayload) =>{ console.log({payload})
 
 export const register = (payload: SignUpPayload) =>
   apiFetch<AuthResponse>('/auth/register', { method: 'POST', body: payload, auth: false });
+
+export const checkAccount = (payload: CheckAccountPayload) =>
+  apiFetch<CheckAccountResponse>('/auth/check-account', { method: 'POST', body: payload, auth: false });

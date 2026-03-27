@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { login, register, AuthResponse, LoginPayload, SignUpPayload } from 'app/api/auth';
+import { login, register, AuthResponse, LoginPayload, SignUpPayload, checkAccount, CheckAccountPayload, CheckAccountResponse } from 'app/api/auth';
 import { ApiError } from 'app/api/client';
 import { useAuth } from 'app/providers/AuthProvider';
 
@@ -19,3 +19,9 @@ export const useRegisterMutation = () =>
   useMutation<AuthResponse, ApiError, SignUpPayload>({
     mutationFn: register,
   });
+  
+export const useCheckAccountMutation = () =>
+  useMutation<CheckAccountResponse, ApiError, CheckAccountPayload>({
+    mutationFn: checkAccount,
+  });
+

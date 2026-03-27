@@ -2,6 +2,8 @@ import { memo, useCallback, useState } from "react";
 import { StyleSheet, TextInput, View, TextInputProps,  TouchableOpacity } from "react-native";
 import MaterialIcons, { MaterialIconsIconName } from "@react-native-vector-icons/material-icons";
 import Typography from "./Typography";
+import { StyleProp } from "react-native/types_generated/index";
+import { ViewStyle } from "react-native/types_generated/index";
 
 interface CustomFormInputProps extends TextInputProps {
   error?: string;
@@ -10,13 +12,16 @@ interface CustomFormInputProps extends TextInputProps {
     name: MaterialIconsIconName;
     size: number;
     color?: string;
-  }
+  },
+  wrapperStyle?: StyleProp<ViewStyle>
 }
 
 const CustomTextInput = ({
   error = "",
   type = "normal",
   leftIcon,
+  wrapperStyle,
+  style,
   ...props
 }: CustomFormInputProps) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,11 +35,11 @@ const CustomTextInput = ({
   }, [type, isVisible])
   
   return <View style={styles.container}>
-      <View style={[styles.textInputWrapper, errorStyle]}>
+      <View style={[styles.textInputWrapper, errorStyle, style, wrapperStyle]}>
         {leftIcon && <MaterialIcons color={ error ? "#DC3545" : leftIcon.color } {...leftIcon} />}
         <TextInput 
           secureTextEntry={!isVisible && type === "password"} 
-          style={[styles.textInput]} 
+          style={[styles.textInput, style]} 
           {...props} 
         />
         {visibilityIcon()}

@@ -31,7 +31,7 @@ export const apiFetch = async <T>(
 ): Promise<T> => {
   const token = auth ? storage.getString('user.token') : undefined;
   const url = path.startsWith('http') ? path : `${baseUrl}${path}`;
-  console.log("apiFetch: ", {method, path, body})
+  console.log("apiFetch: ", {method, path, body, url})
   const response = await fetch(url, {
     method,
     headers: {
