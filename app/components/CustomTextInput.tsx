@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from "react";
 import { StyleSheet, TextInput, View, TextInputProps,  TouchableOpacity, StyleProp, ViewStyle } from "react-native";
 import MaterialIcons, { MaterialIconsIconName } from "@react-native-vector-icons/material-icons";
-import Typography from "./Typography";
+import Typography, { TypographyVariant } from "./Typography";
 import { COLORS } from "app/constants/token";
 
 interface CustomFormInputProps extends TextInputProps {
@@ -13,6 +13,10 @@ interface CustomFormInputProps extends TextInputProps {
     color?: string;
   },
   wrapperStyle?: StyleProp<ViewStyle>
+  textLabel?: string;
+  textColor?: string;
+  textVariant?: TypographyVariant;
+  textStyle?: StyleProp<ViewStyle>;
 }
 
 const CustomTextInput = ({
@@ -21,6 +25,10 @@ const CustomTextInput = ({
   leftIcon,
   wrapperStyle,
   style,
+  textLabel,
+  textStyle,
+  textVariant,
+  textColor,
   ...props
 }: CustomFormInputProps) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -34,6 +42,7 @@ const CustomTextInput = ({
   }, [type, isVisible])
   
   return <View style={styles.container}>
+      {textLabel && <Typography variant={textVariant} style={[{fontWeight: "700", marginLeft: 4}, textStyle]} color={textColor || COLORS.onSurfaceVariant}>{textLabel}</Typography>}
       <View style={[styles.textInputWrapper, errorStyle, style, wrapperStyle]}>
         {leftIcon && <MaterialIcons color={ error ? "#DC3545" : leftIcon.color } {...leftIcon} />}
         <TextInput 
@@ -49,7 +58,7 @@ const CustomTextInput = ({
 
 const styles = StyleSheet.create({
   container: {
-    gap: 4
+    gap: 8
   },
   textInputWrapper: {
     height: 48,

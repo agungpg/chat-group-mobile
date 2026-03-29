@@ -37,7 +37,8 @@ const RegistrationScreen = () => {
       <View style={{paddingHorizontal: 20}}>
         <StepperV2 />
       </View>
-      {renderScreen(step)}
+      {/* {renderScreen(2)} */}
+      <ProfileSetup />
     </View>
 }
 

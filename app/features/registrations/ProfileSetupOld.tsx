@@ -12,7 +12,6 @@ import * as ImagePicker from 'react-native-image-picker';
 import { useUploadImage } from "app/hooks/useUploadImage";
 import Avatar from "@components/Avatar";
 import AvatarForm from "./AvatarForm";
-import { COLORS } from "app/constants/token";
 const formInitialState = {
   name: "",
   bio: "",
@@ -148,79 +147,89 @@ const Account = () => {
         }
       );
     }, [upload]);
-    
-    return <View style={styles.screenContainer}>
-        <View style={styles.formInputSection}>
-          <View style={{gap: 12, alignItems: "center"}} >
-            <AvatarForm 
-              uri={asset?.uri || ""} 
-              isLoading={isPending} 
-              onUpload={onUploadProfilePicture} 
-              />
-            <Typography color={COLORS.onSurfaceVariant} style={{ fontWeight: "700" }} variant="body">Upload your profile photo</Typography>
-          </View>
-          <View style={{gap: 20, flex: 1}}>
-          <CustomTextInput 
-            textLabel="Display Name"
-            textVariant="label"
-            error={errors.name}
-            value={form.name} 
-            onChangeText={handleNameChange} 
-            placeholder="How should we call you?" 
-          /> 
-          <CustomTextInput 
-            textLabel="Bio"
-            textVariant="label"
-            error={errors.bio}
-            value={form.bio} 
-            onChangeText={handleBioChange} 
-            placeholder="Tell us a bit about yourself..." 
-            multiline={true}
-            style={styles.inputBio}
-            wrapperStyle={styles.inputBioWrapper}
-            numberOfLines={5}
-          />  
-          </View>
-        </View>
 
-      <View style={styles.actionsSection}>
-        <Button backgroundColor={COLORS.surfaceContainerHighest} textColor={COLORS.onSurface} style={styles.backBtn} isLoading={isValidating || registerMutation.isPending} label="Back" onPress={() => {}} />
-        <Button style={styles.nextBtn} isLoading={isValidating || registerMutation.isPending} label="Next" onPress={() => {}} />
+    const alertMsgColor = { color: FormAlert.type === "success" ? "#22C55E" : "#DC2626" }
+    console.log({asset})
+    
+    return <ScrollView style={styles.screenContainer}>
+      <View style={{gap: 40}}>
+      <Button withIcon={{
+        name: "arrow-back",
+        color: "#4B5563",
+        size: 28,
+        position: 'left'
+      }}
+      isLoading={isValidating || registerMutation.isPending} 
+      style={styles.previousBtn} 
+      onPress={onPrevStep} />
+
+      <View style={styles.headerSection}>
+        <Typography variant="heading">Personal Info</Typography>
       </View>
-    </View>
+      <View style={styles.formInputSection}>
+        <AvatarForm uri={asset?.uri || ""} isLoading={isPending} onUpload={onUploadProfilePicture} />
+        <CustomTextInput 
+          error={errors.name}
+          leftIcon={{
+            name: "person",
+            size: 28,
+          }}
+          value={form.name} 
+          onChangeText={handleNameChange} 
+          placeholder="name..." 
+        />  
+        <CustomTextInput 
+          leftIcon={{
+            name: "comment",
+            size: 28
+          }}
+          error={errors.bio}
+          value={form.bio} 
+          onChangeText={handleBioChange} 
+          placeholder="bio..." 
+          multiline={true}
+          style={{
+            height: 150,
+            borderRadius: 12,
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+            paddingVertical: 0,
+            textAlignVertical: "top"
+          }}
+          wrapperStyle={{
+            paddingVertical: 12
+          }}
+          numberOfLines={5}
+        />  
+      </View>
+      </View>
+      <View style={styles.actionsSection}>
+        <View>
+          {FormAlert.message ? (
+              <Typography variant="body" style={[styles.formAlertMsg, alertMsgColor]}>
+                {FormAlert.message}
+              </Typography>
+            ) : null}
+          <Button isLoading={isValidating || registerMutation.isPending} label="Next" onPress={onSignupPress} />
+        </View>
+      </View>
+    </ScrollView>
 }
 
 const styles = StyleSheet.create({
   screenContainer: {
-    paddingVertical: 28,
-    backgroundColor: COLORS.surface,
-    display: "flex",
-    flexDirection: "column",
+    padding: 28,
+    backgroundColor: "#E6EBF0",
     flex: 1,
   },
   headerSection: {
     gap: 12
   },
   formInputSection: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 20,
-    paddingHorizontal: 20,
-    flex: 1,
+    gap: 20
   },
   actionsSection: {
-    paddingHorizontal: 20,
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 16,
-    borderTopWidth: 0.2,
-    borderTopColor: COLORS.outlineVariant,
-    gap: 16
-  },
-  inputBioWrapper: {
-    paddingVertical: 12
+    gap: 32
   },
   linkRow:{
     display: "flex",
@@ -237,22 +246,7 @@ const styles = StyleSheet.create({
     textAlign: "center", 
     paddingBottom: 8
   },
-  backBtn: { 
-    width: "35%", 
-    borderRadius: 12
-  },
-  nextBtn: {
-    flex: 1, 
-    borderRadius: 12
-  },
-  inputBio: {
-    height: 150,
-    borderRadius: 12,
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    paddingVertical: 0,
-    textAlignVertical: "top"
-  }
+  previousBtn: { width: 42, height: 42, padding: 0, backgroundColor: "#F3F4F6", borderColor: "#D1D5DB", paddingHorizontal: 0 }
 })
 
 export default Account;

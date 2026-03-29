@@ -13,11 +13,12 @@ const Avatar = ({
 }: AvatarProps) => {
 
   return <View>
-    <Image source={{
+    <Image 
+    source={{
         uri,
         width: size,
         height: size
-      }} style={{borderRadius: "100%"}} />
+      }} style={{borderRadius: 8}} />
   </View>
 }
 
